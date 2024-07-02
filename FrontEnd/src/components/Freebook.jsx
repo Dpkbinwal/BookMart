@@ -69,9 +69,9 @@ const Freebook = () => {
     return (
         <>
             <div className='max-w-screen-2xl container mt-5 md:m-auto md:px-20 px-4 '>
-                <div className='max-w-screen-2xl container mx-auto md:px-10 px-1'>
-                    <h1 className="font-semibold text-xl pb-2">Free Offered Courses</h1>
-                    <p className="text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat, consequuntur quis s nostrum corrupti deserunt necessitatibus optio, quos alias! Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit dolores laboriosam reprehenderit voluptas!</p>
+                <div className='max-w-screen-2xl container mx-auto md:px-10 px-1  '>
+                    <h1 className="font-semibold flex justify-center text-3xl pb-2">Free Offered Courses</h1>
+                    <p className="text-sm text-center ">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat, consequuntur quis s nostrum corrupti deserunt necessitatibus optio, quos alias! Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit dolores laboriosam reprehenderit voluptas!</p>
                 </div>
                 <div className="mt-10 max-w-screen-2xl container mx-auto md:px-10 px-1">
                     <Slider {...settings}>
