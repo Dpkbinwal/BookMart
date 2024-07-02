@@ -1,6 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
+import axios from 'axios'
+import {toast} from "react-hot-toast"
 
 const Login = () => {
    const {
@@ -9,7 +11,33 @@ const Login = () => {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => console.log(data)
+  const navigate = useNavigate();
+  const onSubmit =async (data) => {
+
+    const UserInfo = {
+      email: data.email,
+      password:data.password
+    }
+
+
+    await axios.post('http://localhost:8000/user/login', UserInfo)
+    .then((res)=>{
+      console.log(res.data);
+      if(res.data){
+        // alert("Login Successfully")
+        
+        toast.success("Loggedin successful")
+        // document.getElementById("my_modal_3").close();
+        window.location.reload()
+        localStorage.setItem("Users",JSON.stringify(res.data.user));
+      }
+      // navigate("/");
+    }).catch((err)=>{
+      console.log(err)
+      // alert("Error: " + err.response.data.message)
+      toast.error(err.response.data.message)
+    })
+  }
 
   return (
     <>
@@ -18,9 +46,9 @@ const Login = () => {
 
         <dialog id="my_modal_3" className="modal">
           <div className="modal-box">
+              <a href="/"><button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button></a>
             <form method="dialog"  onSubmit={handleSubmit(onSubmit)}>
               {/* if there is a button in form, it will close the modal */}
-              <Link to='/'><button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button></Link>
           
             <h3 className="font-bold text-lg ">Login</h3>
             <div className='m-4'>

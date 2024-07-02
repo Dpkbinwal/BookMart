@@ -1,7 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Login from './Login'
 import { useForm } from "react-hook-form"
+import axios from 'axios'
+import toast from 'react-hot-toast'
 
 const Signup = () => {
 
@@ -11,7 +13,38 @@ const Signup = () => {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => console.log(data)
+  const navigate = useNavigate();
+  const onSubmit = async(data) => {
+    const userInfo ={
+      fullname : data.name,
+      email : data.email,
+      password : data.password,
+    }
+    console.log(data);
+
+    await axios.post("http://localhost:8000/user/signup",userInfo)
+    .then((res)=>{
+      console.log(res)
+      if(res.data){
+        // alert("Signup Successfully")
+        toast.success("Signup Successfully")
+        localStorage.setItem("Users",JSON.stringify(res.data.user));
+        navigate("/")
+        window.location.reload();
+      }
+
+
+    }).catch((err) => {
+      if(err.response){
+        console.log(err);
+        // alert("Error: "+ err.response.data.message)
+        toast.error(err.response.data.message)
+      
+      }
+    })
+    
+
+  }
 
   return (
    <div className="">
